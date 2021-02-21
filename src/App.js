@@ -1,24 +1,49 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import "./App.css";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import Header from "./Header";
+import Home from "./Home";
+import Checkout from "./Checkout";
+import Login from "./Login";
+import { useStateValue } from "./StateProvider"
 
+// We need "React Router" to create routing
 function App() {
+  const [{ basket }, dispatch] = useStateValue();
+
+  // useEffect - A piece of code runs on a given condition
+
+  useEffect(() => {
+    effect
+    
+    return () => {
+      cleanup
+    }
+  }, [])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div className="app">
+        <Switch>
+
+          <Route path="/checkout">
+            <Header />
+            <Checkout />
+          </Route>
+
+          <Route path="/login">
+            <Login />
+          </Route>
+
+          {/* The main home page must be at the bottom */}
+          <Route path="/">
+            <Header />
+            <Home />
+          </Route>
+          
+        </Switch>
+      </div>
+    </Router>
   );
 }
 
