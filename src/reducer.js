@@ -1,23 +1,19 @@
-export const getBasketTotal = (basket) =>
-basket?.reduce((amount, item) => item.price + amount, 0);
-
 export const initialState = {
-  basket: [
-    {
-      id: "2300064",
-      title:
-        "Apple iPad (7th Gen) 32 GB ROM 10.2 inch with Wi-Fi Only (Space Grey)",
-      price: 27200,
-      image:
-        "https://rukminim1.flixcart.com/image/352/352/k1l1ea80/tablet/t/w/8/apple-mw742hn-a-original-imafh4hg9ycqtszm.jpeg?q=70",
-      rating: 5,
-    },
-  ],
+  basket: [],
+  user: null,
 };
 
+export const getBasketTotal = (basket) =>
+  basket?.reduce((amount, item) => item.price + amount, 0);
+
 const reducer = (state, action) => {
-  console.log(action);
+  // console.log(action);
   switch (action.type) {
+    case "SET_USER":
+      return {
+        ...state,
+        user: action.user,
+      };
     case "ADD_TO_BASKET":
       // Logic to add item to the basket
       return {
@@ -25,6 +21,11 @@ const reducer = (state, action) => {
         basket: [...state.basket, action.item],
       };
 
+    case "EMPTY_BASKET":
+      return {
+        ...state,
+        basket: [],
+      };
 
     case "REMOVE_FROM_BASKET":
       // Logic to remove items from the basket
@@ -47,7 +48,6 @@ const reducer = (state, action) => {
       }
 
       return { ...state, basket: newBasket };
-
 
     default:
       return state;
